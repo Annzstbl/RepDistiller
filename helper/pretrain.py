@@ -86,7 +86,7 @@ def init(model_s, model_t, init_modules, criterion, train_loader, logger, opt):
             end = time.time()
 
         # end of epoch
-        logger.log_value('init_train_loss', losses.avg, epoch)
+        # logger.log_value('init_train_loss', losses.avg, epoch)
         print('Epoch: [{0}/{1}]\t'
               'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
               'losses: {losses.val:.3f} ({losses.avg:.3f})'.format(
