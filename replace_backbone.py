@@ -4,8 +4,8 @@ import torch
 
 # detr_checkpoint_file = '/data3/litianhao/hsmot/motip/r50_deformable_detr_coco.pth'
 detr_checkpoint_file = '/data3/litianhao/hsmot/motr/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint_8ch_interpolate.pth'
-distill_file = '/data3/litianhao/hsmot/distill/hintlayer:2_3_4_hintweights:1_1_1_firstconvLrScale:10_1/resnet8_last.pth'
-save_file = '/data3/litianhao/hsmot/motr/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint_8ch_interpolate_distill.pth'
+distill_file = '/data/users/litianhao/hsmot_code/workdir/distill/hintlayer:2_3_4_hintweights:1_1_1_firstconvLrScale:10_lr:1e-06_1/resnet8_last.pth'
+save_file = '/data/users/litianhao/hsmot_code/workdir/distill/hintlayer:2_3_4_hintweights:1_1_1_firstconvLrScale:10_lr:1e-06_1/r50_deformable_detr_plus_iterative_bbox_refinement-checkpoint_8ch_interpolate_distill.pth'
 
 # load two models and replace backbone of detr with distill_file
 

@@ -51,7 +51,7 @@ def parse_option():
 
     # optimization
     # parser.add_argument('--learning_rate', type=float, default=0.05, help='learning rate')
-    parser.add_argument('--learning_rate', type=float, default=6e-5, help='learning rate')# 
+    parser.add_argument('--learning_rate', type=float, default=1e-6, help='learning rate')# 
     # parser.add_argument('--lr_decay_epochs', type=str, default='150,180,210', help='where to decay lr, can be a list')
     parser.add_argument('--lr_decay_epochs', type=str, default='5,10,15', help='where to decay lr, can be a list')
     parser.add_argument('--lr_decay_rate', type=float, default=0.1, help='decay rate for learning rate')
@@ -118,7 +118,7 @@ def parse_option():
     # opt.model_name = 'S:{}_T:{}_{}_{}_r:{}_a:{}_b:{}_{}'.format(opt.model_s, opt.model_t, opt.dataset, opt.distill,
                                                                 # opt.gamma, opt.alpha, opt.beta, opt.trial)
     # opt.model_name = 'HingWeight:{}_{}_{}_FconvLrScale:{}'.format(opt.hint_weights_layer2, opt.hint_weights_layer3, opt.hint_weights_layer4, opt.first_conv_lr_scale)
-    opt.model_name = f'hintlayer:{"_".join(str(x) for x in opt.hint_layer_list)}_hintweights:{"_".join(str(x) for x in opt.hint_loss_weights)}_firstconvLrScale:{opt.first_conv_lr_scale}'
+    opt.model_name = f'hintlayer:{"_".join(str(x) for x in opt.hint_layer_list)}_hintweights:{"_".join(str(x) for x in opt.hint_loss_weights)}_firstconvLrScale:{opt.first_conv_lr_scale}_lr:{opt.learning_rate}'
 
     # opt.tb_folder = os.path.join(opt.tb_path, opt.model_name)
     # if not os.path.isdir(opt.tb_folder):
@@ -392,6 +392,13 @@ def main():
         return False
     
     firsr_conv_name = '0.body.conv1.weight'
+
+    # 只对model_s的第一层训练
+    for name, param in model_s.named_parameters():
+        if match_names(name, firsr_conv_name):
+            param.requires_grad = True
+        else:
+            param.requires_grad = False
 
     # 分组
     groups = [
